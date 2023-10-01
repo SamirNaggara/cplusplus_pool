@@ -6,7 +6,7 @@
 /*   By: snaggara <snaggara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:39:34 by snaggara          #+#    #+#             */
-/*   Updated: 2023/07/03 00:07:49 by snaggara         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:09:00 by snaggara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,13 @@ void	PhoneBook::display_all_contact() const
 
 std::string	truncate_str(std::string str)
 {
-	if (str.size() >= 10)
+	if (str.size() == 10)
 		return (str.substr(0,10));
+	else if (str.size() >= 10)
+	{
+		str[9] = '.';
+		return (str.substr(0,10));
+	}
 	
 	std::string	to_return("          ");
 	int	j = 9;
