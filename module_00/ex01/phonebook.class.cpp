@@ -6,13 +6,15 @@
 /*   By: snaggara <snaggara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:39:34 by snaggara          #+#    #+#             */
-/*   Updated: 2023/10/01 16:09:00 by snaggara         ###   ########.fr       */
+/*   Updated: 2023/10/02 12:04:17 by snaggara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "phonebook.hpp"
 
+PhoneBook::PhoneBook() : _id_contact(0)
+{}
 
 bool	PhoneBook::command()
 {
@@ -53,51 +55,43 @@ void	PhoneBook::execute_search() const
 
 void	PhoneBook::execute_add()
 {
-	
-	if (this->list_contact.size() >= 8)
+	Contact	*theContact;
+
+	if (_id_contact >= 8)
+	{
 		this->delete_first_contact();
-	
-	int	last_id = 0;
-	if (this->list_contact.size())
-		last_id = this->list_contact.back().get_id();
-		
-	Contact	contact;
-	contact.set_id(last_id+ 1);
-	contact.set_first_name();
-	contact.set_last_name();
-	contact.set_nickname();
-	contact.set_phone_number();
-	contact.set_darkest_secret();
+		theContact = _contact_list + 7;
+	}
+	else
+		theContact = _contact_list + _id_contact;
 
-	this->list_contact.push_back(contact);
 
-	//this->add_contact_to_list(contact);
-	
+	theContact->set_id(_id_contact);
+	theContact->set_first_name();
+	theContact->set_last_name();
+	theContact->set_nickname();
+	theContact->set_phone_number();
+	theContact->set_darkest_secret();
+
+	_id_contact++;
 	std::cout << std::endl << SUCCESS_ADD << std::endl << std::endl;
 }
 
-// int		PhoneBook::get_nb_contact() const
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < 8 && this->list_contact[i])
-// 		i++;
-// 	return (i);
-// }
 
 bool 	PhoneBook::delete_first_contact()
 {
-	if (this->list_contact.size() >= 8)
-		this->list_contact.erase(this->list_contact.begin());
+	for (int i = 0; i < 7; i++)
+		_contact_list[i] = _contact_list[i + 1];
 	return (true);
 }
 
 bool	PhoneBook::contact_exist(int id) const
 {
-	for (int i = 0; i < (int)this->list_contact.size(); i++)
+	if (id == -1)
+		return (false);
+	for (int i = 0; i < 8; i++)
 	{
-		if (this->list_contact[i].get_id() == id)
+		if (_contact_list[i].get_id() == id)
 			return (true);
 	}
 	return (false);
@@ -106,10 +100,10 @@ bool	PhoneBook::contact_exist(int id) const
 Contact	PhoneBook::found_contact_by_id(int id) const
 {
 	
-	for (int i = 0; i < (int)this->list_contact.size(); i++)
+	for (int i = 0; i < 8; i++)
 	{
-		if (this->list_contact[i].get_id() == id)
-			return (this->list_contact[i]);
+		if (_contact_list[i].get_id() == id)
+			return (_contact_list[i]);
 	}
 	Contact	contact;
 	contact.set_id(-1);
@@ -120,19 +114,17 @@ void	PhoneBook::display_all_contact() const
 {
 	std::cout << "--------------------------------------------------------" << std::endl;
 
-	for (int i = 0; i < (int)this->list_contact.size(); i++)
+	for (int i = 0; i < 8 && _contact_list[i].get_id() != -1; i++)
 	{
-		//std::cout << typeid(this->list_contact[i].get_id());
-
 		std::stringstream id_stream;
-    	id_stream << this->list_contact[i].get_id();
+    	id_stream << _contact_list[i].get_id();
     	std::string id_str = id_stream.str();
 		
 		std::cout << "|" << truncate_str(id_str);
-		std::cout << "|" << truncate_str(this->list_contact[i].get_first_name());
-		std::cout << "|" << truncate_str(this->list_contact[i].get_last_name());
-		std::cout << "|" << truncate_str(this->list_contact[i].get_nickname());
-		std::cout << "|" << truncate_str(this->list_contact[i].get_phone_number());
+		std::cout << "|" << truncate_str(_contact_list[i].get_first_name());
+		std::cout << "|" << truncate_str(_contact_list[i].get_last_name());
+		std::cout << "|" << truncate_str(_contact_list[i].get_nickname());
+		std::cout << "|" << truncate_str(_contact_list[i].get_phone_number());
 		std::cout << "|" << std::endl;
 
 

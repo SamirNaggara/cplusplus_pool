@@ -6,13 +6,26 @@
 /*   By: snaggara <snaggara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:39:24 by snaggara          #+#    #+#             */
-/*   Updated: 2023/07/03 00:06:52 by snaggara         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:08:56 by snaggara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "contact.class.hpp"
 #include <iostream>
 #include <vector>
+
+Contact::Contact(void) : _id(-1){};
+
+Contact& 	Contact::operator=(Contact const &contact)
+{
+	_id = contact._id;
+	_first_name = contact._first_name;
+	_last_name = contact._last_name;
+	_nickname = contact._nickname;
+	_darkest_secret = contact._darkest_secret;
+	return (*this);
+}
+
 
 void	Contact::display_contact() const
 {
@@ -138,7 +151,7 @@ bool 	Contact::set_darkest_secret()
 {
 	std::string	darkest_secret;
 
-	std::cout << "Le pkus noir secret please : " << std::endl;
+	std::cout << "Le plus noir secret please : " << std::endl;
 
 	getline(std::cin, darkest_secret);
 	while (darkest_secret.empty())

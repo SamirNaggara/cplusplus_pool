@@ -6,7 +6,7 @@
 /*   By: snaggara <snaggara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:39:28 by snaggara          #+#    #+#             */
-/*   Updated: 2023/07/02 12:41:54 by snaggara         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:45:23 by snaggara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@
 class Contact
 {
 public:
-
-	//Contact(int id, std::string first_name, std::string last_name,
-	//		std::string nickname, std::string phone_number,
-	//		std::string darkest_secret);
-	//~Contact(void);
-
 	int			get_id() const;
 	bool		set_id(int id);
 
@@ -44,6 +38,9 @@ public:
 
 	void		display_contact() const;
 	void		display_contact_summary() const;
+
+	Contact& 	operator=(Contact const &contact);
+	Contact(void);
 
 private:
 	int			_id;

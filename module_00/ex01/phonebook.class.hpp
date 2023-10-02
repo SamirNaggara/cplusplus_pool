@@ -6,7 +6,7 @@
 /*   By: snaggara <snaggara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:39:38 by snaggara          #+#    #+#             */
-/*   Updated: 2023/07/02 15:34:33 by snaggara         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:09:53 by snaggara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PHONEBOOK_CLASS
 
 #include "contact.class.hpp"
-# include <vector>
 
 
 class PhoneBook
@@ -24,6 +23,8 @@ public:
 		Renvoie false si on sors des commands possibles
 	*/
 	bool	command();
+
+	PhoneBook(void);
 
 private:
 	/*
@@ -56,9 +57,8 @@ private:
 	void	display_all_contact() const;
 
 	
-
-
-	std::vector<Contact> 	list_contact;
+	Contact	_contact_list[8];
+	int		_id_contact;
 };
 
 
