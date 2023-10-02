@@ -6,7 +6,7 @@
 /*   By: snaggara <snaggara@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:39:34 by snaggara          #+#    #+#             */
-/*   Updated: 2023/10/02 12:04:17 by snaggara         ###   ########.fr       */
+/*   Updated: 2023/10/02 19:57:17 by snaggara         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ bool	PhoneBook::command()
 
 void	PhoneBook::execute_search() const
 {
+	if (_id_contact == 0)
+	{
+		std::cout << "Y'a zero contacts mon reuf tu veux chercher quoi ??" << std::endl;
+		return ;
+	}
 	this->display_all_contact();
 	
 	int	ask_id;
